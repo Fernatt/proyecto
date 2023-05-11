@@ -1,0 +1,221 @@
+direcciones IPV6 
+
+
+
+routers_casa
+
+-
+
+
+direcciones que me ha dado para los router de internet el chat gpt
+
+Mis disculpas por la confusión anterior. En el ejemplo proporcionado, se utilizó el prefijo
+ "2001:db8" para las direcciones IPv6, 
+que es un prefijo reservado para documentación y no debe ser utilizado en entornos de producción.
+
+Para evitar conflictos de direcciones, es importante utilizar rangos de direcciones 
+IPv6 que sean únicos y que no estén en conflicto con otros sistemas en Internet. 
+Puedes obtener un prefijo IPv6 válido de tu proveedor de servicios de Internet o utilizar un 
+prefijo de direcciones IPv6 asignado globalmente.
+
+Aquí tienes un ejemplo revisado utilizando un prefijo de direcciones IPv6 asignado globalmente:
+
+| Router   | Interfaz WAN           |
+|----------|------------------------|
+| Router 1 | 2001:0db8:1111::1/64   |
+| Router 2 | 2001:0db8:2222::1/64   |
+| Router 3 | 2001:0db8:3333::1/64   |
+| Router 4 | 2001:0db8:4444::1/64   |
+| Router 5 | 2001:0db8:5555::1/64   |
+
+Estas direcciones IPv6 son solo ejemplos y deberás ajustarlas según tu asignación de direcciones IPv6 válidas.
+
+Es importante tener en cuenta que, al implementar direcciones IPv6, 
+debes asegurarte de que no haya conflictos con otros sistemas en Internet y 
+seguir las mejores prácticas para la asignación y configuración de direcciones IPv6.
+
+
+-------------------------------------------------------------------------------------------------------
+equipo_portail_casa_VPN 
+- router_2_casa_vpn --> 2001:0db8:1111::1/64 interface gig0/0/0
+
+
+
+router_2_internet--> 2001:0db8:2222::1/64 interface gig0/0/1
+
+
+
+router_5 internet_5 --> 2001:0db8:3333::1/64 interface gig0/0/0
+router_5 internet_5 --> 2001:0db8:5555::1/64 interface gig0/0/1 
+
+
+router 6 internet_6 --> 2001:0db8:6666::1/64 interface gig0/0/0
+router 6 internet_6 --> 2001:0db8:7777::1/64 interface gig0/0/1
+
+router 10 internet_10 --> 2001:0db8:8888::1/64 interface gig0/0/0
+router 10 internet_10 --> 2001:0db8:9999::1/64 interface gig0/0/1
+
+
+router 3 internet_3 --> 2001:0db8:1001::1/64 interface gig0/0/0
+router 3 internet_3 --> 2001:0db8:1001::1/64 interface gig0/0/1
+
+router 0 internet_0 --> 2001:0db8:1110::1/64 interface gig0/0/0
+
+--------------------------------------------------------------------------------------------------
+comandos de configuracion ipv6 o los comando faciles
+
+
+router> enable --> para activar y demas la terminal 
+router#config term
+router(config) interface gig0/0/0
+router(config-if)# ipv6 add direccion ipv6/64
+router(config-if)# ipv6 enable
+router(config-if)# no shutdown 
+router(config-if)# exit
+router# write --> guardar configuracion de todo lo que hemos hecho
+
+router# show running-config
+
+
+
+coniguracion de vlan 
+
+
+------------------------------------------------------------
+configuracion de comandos
+router_2
+
+enable
+config term
+interface gig0/0/0
+ipv6 enable
+ipv6 add 2001:0db8:1111::1/64
+no shutdown
+exit
+
+interface gig 0/0/1
+ipv6 enable
+ipv6 add 2001:0db8:2222::1/64
+no shutdown
+exit
+
+
+
+
+
+
+
+--------------------------------------------------------------------
+Direccion posibles de momento pero veo algo que no esta bien asignado ispo
+
+Entendido. A continuación, te proporcionaré una tabla con las direcciones IPv6 para cada PC dentro de cada VLAN:
+
+| VLAN          | Descripción       		| Rango IPv6               | Cantidad de Equipos | Direcciones IPv6                       |
+|---------------|------------------|--------------------------|---------------------|----------------------------------------|
+| DMZ           | Zona desmilitarizada  	| 2001:db8:0:1::/64    		| Hasta 15            | 2001:db8:0:1::1 - 2001:db8:0:1::F    |
+| WIFI_EMPLEADOS | Wi-Fi para empleados 	| 2001:db8:0:2::/64    		| Hasta 15            | 2001:db8:0:2::1 - 2001:db8:0:2::F    |
+| PRODUCCIÓN    | Departamento de producción 	| 2001:db8:0:3::/64    	| Hasta 15            | 2001:db8:0:3::1 - 2001:db8:0:3::F    |
+| DISEÑO        | Departamento de diseño 	| 2001:db8:0:4::/64    	| Hasta 15            | 2001:db8:0:4::1 - 2001:db8:0:4::F    |
+| DIRECCIÓN     | Departamento de dirección 	| 2001:db8:0:5::/64    	| Hasta 15            | 2001:db8:0:5::1 - 2001:db8:0:5::F    |
+| INFORMÁTICA   | Departamento de informática 	| 2001:db8:0:6::/64    	| Hasta 15            | 2001:db8:0:6::1 - 2001:db8:0:6::F    |
+| CONTABILIDAD  | Departamento de contabilidad 	| 2001:db8:0:7::/64    	| Hasta 15            | 2001:db8:0:7::1 - 2001:db8:0:7::F    |
+| RRHH          | Departamento de recursos humanos | 2001:db8:0:8::/64  | Hasta 15            | 2001:db8:0:8::1 - 2001:db8:0:8::F    |
+| WIFI_INVITADOS | Wi-Fi para invitados | 2001:db8:0:9::/64    		| Hasta 15            | 2001:db8:0:9::1 - 2001:db8:0:9::F    |
+| SERVIDORES    | Servidores centrales | 2001:db8:0:A::/64    		| Hasta 15            | 2001:db8:0:A::1 - 2001:db8:0:A::F    |
+
+--------------------------------------------------------------------
+10 VLAN_TENEMOS EN LA EMPRESA
+
+COMPONE_VLAN 
+
+- DMZ 
+- WIFI_EMPLEADOS
+- PRODUCCIÓN
+- DISEÑO
+- DIRECCIÓN
+- INFORMÁTICA
+- CONTABILIDAD
+- RRHH
+- WIFI_INVITADOS
+- SERIDORES
+---------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------
+configuracion eigrp para configuracion
+esto de principio
+enable 
+config term
+
+ipv6 unicast-routing
+
+interface gig0/0/0
+ipv6 addreses ipv6/64
+no shutdown
+
+
+router(config)#ipv6 enable --> esto no funciona
+router(config)#ipv6 unicast-routing
+router(config)#ipv6 router eigrp 10
+
+router(config-rtr)#eigrp router-id 1.1.1.1
+exit
+
+router(config)#interface se0/0/0 -->
+router(config-if)# ipv6 eigrp 10 
+exit
+
+ahora vamos a la interfaz dentro de la red gig0/0/0
+
+router(config)#int gig0/0
+router(config-if)#ipv6 eigrp 10
+exit
+
+vale ahora vamos a encender
+
+
+router(config)#♥ipv6 router eigrp 10
+router(config-rtr)#no shutdown
+exit
+--------------------------------------------------
+en el router del medio como se deberia hacer
+
+
+
+
+
+-----------------------------------------------------------
+
+
+configuracion de ospf 
+
+
+
+enable
+configure terminal
+
+interface Ethernet0/0
+ipv6 address 2001:db8:0:1::1/64
+no shutdown
+
+interface Ethernet0/1
+ipv6 address 2001:db8:0:2::1/64
+no shutdown
+
+ipv6 router ospf 1
+router-id 1.1.1.1
+exit
+
+ipv6 ospf 1 area 0
+network 2001:db8:0:1::/64 area 0
+network 2001:db8:0:2::/64 area 0
