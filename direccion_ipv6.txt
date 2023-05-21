@@ -480,8 +480,7 @@ cuando estamos dentro nameif dmz
 
 --------------------------------------------------------------
 
-
----------------------------------------------------
+************************************************************************
 configuracion de router para vlan 
 
 
@@ -509,6 +508,36 @@ encapsulation dot1q 30
 ipv6 add 2001:0db8:1111:30::1/64
 do write
 
+interface gig0/0/1.40
+ipv6 enable
+encapsulation dot1q 40
+ipv6 add 2001:0db8:1111:40::1/64
+do write
+
+interface gig0/0/1.50
+ipv6 enable
+encapsulation dot1q 50
+ipv6 add 2001:0db8:1111:50::1/64
+do write
+
+interface gig0/0/1.60
+ipv6 enable
+encapsulation dot1q 60
+ipv6 add 2001:0db8:1111:60::1/64
+do write
+
+interface gig0/0/1.70
+ipv6 enable
+encapsulation dot1q 70
+ipv6 add 2001:0db8:1111:70::1/64
+do write
+
+interface gig0/0/1.80
+ipv6 enable
+encapsulation dot1q 80
+ipv6 add 2001:0db8:1111:80::1/64
+do write  
+
 
 interface gig0/0/1.90
 ipv6 enable
@@ -531,6 +560,7 @@ ipv6 dhcp pool vlan10
 address prefix 2001:0db8:1111:10::0/64
 prefix-delegation 2001:0db8:1111:10::1/64
 dns-server 8.8.8.8
+*********************************************************
 ------------------------------------------------------
 switch central 
 
