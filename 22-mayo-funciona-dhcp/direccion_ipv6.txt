@@ -660,6 +660,7 @@ enable
 config term
 vlan 10
 name direccion
+
 vlan 20
 name rrhh
 vlan 30
@@ -757,6 +758,7 @@ do write
 
 vlan 10
 name direccion
+int vlan 10
 interface range fa0/11-14
 switchport mode access
 switchport access vlan 10
@@ -767,6 +769,7 @@ do write
 
 vlan 20
 name rrhh
+int vlan 20
 interface range fa0/6-10
 switchport mode access
 switchport access vlan 20
@@ -776,6 +779,7 @@ do write
  
 vlan 30
 name contabilidad 
+int vlan 30
 interface range fa0/2-5
 switchport mode access
 switchport access vlan 30
@@ -785,6 +789,7 @@ do write
 
 vlan 40
 name informatica
+int vlan 40
 interface range fa0/15-19
 switchport mode access 
 switchport access vlan 40
@@ -817,7 +822,7 @@ switchport access vlan 110
 do write
 -------------------------------------------------------------------------------------
 
-switch de produccion y diseño
+SWITCH DE PRODUCCION Y DISEÑO
 
 
 enable
@@ -825,22 +830,35 @@ config term
 
 vlan 50 
 name diseño
-vlan 60
-name produccion
-vlan 90
-name servidores-madrid
-vlan 100
-name troncal
-
+int vlan 50
 interface range fa0/17-22
 switchport mode access
 switchport access vlan 50
 do write
 
+
+
+
+vlan 60
+name produccion
+int vlan 60
+
 interface range fa0/1-16
 switchport mode access
 switchport access vlan 60
 do write
+
+
+vlan 90
+name servidores-madrid
+int vlan 90 
+
+
+vlan 100
+name troncal
+int vlan 100
+
+
 
 interface gig0/1
 switchport mode trunk
