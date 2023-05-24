@@ -676,6 +676,7 @@ name servidores-madrid
  
 vlan 100
 name troncal
+int vlan 100
 interface range fa0/1-2
 switchport mode trunk 
 switchport trunk native vlan 100
@@ -699,18 +700,32 @@ config term
 
 vlan 10 
 name direccion
+int vlan 10
+
 vlan 20
 name rrhh
+int vlan 20
+
 vlan 30 
 name contabilidad
+int vlan 30
+
 vlan 40 
 name informatica
+int vlan 40
+
 vlan 50
 name disenio
+int vlan 50
+
 vlan 60
 name produccion
+int vlan 60
+
+
 vlan 90
 name servidores-madrid
+int vlan  90
 
 vlan 100
 name troncal
@@ -825,12 +840,20 @@ config term
 
 vlan 50 
 name diseño
+int vlan 50
+
 vlan 60
 name produccion
+int vlan 60
+
+
 vlan 90
 name servidores-madrid
+int vlan 90
+
 vlan 100
 name troncal
+int vlan 100
 
 interface range fa0/17-22
 switchport mode access
