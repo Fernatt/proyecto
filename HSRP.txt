@@ -1,0 +1,13 @@
+ipv6 unicast-routing
+
+
+INTERFAZ 
+
+ipv6 address 2020:AB8:2001::1010/64
+ ipv6 enable
+standby version 2
+ standby 1 ipv6 autoconfig
+
+
+------SE ASIGNA EL NIVEL DE PRIORIDAD
+standby 1 priority 120
