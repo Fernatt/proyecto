@@ -1,0 +1,51 @@
+*************** configuramos router*****
+
+se configura ruta estatica para permitir el paso de todas las redes  que lleguen con destino al firewall
+
+ipv6 route ::/0 2001:db8:1111:80::2
+**********************************************
+
+ipv6 route outside ::/0 2001:DB8:4::2
+
+ipv6 route inside 2001:DB8:1111:10::/64 2001:DB8:1111:80::1
+!
+!
+!
+!
+!
+
+
+******************************************************************************************************
+
+ciscoasa(config)#no ipv6 route inside 2001:DB8:1111:10::/64 2001:DB8:1111:80::1
+ciscoasa(config)#no ipv6 route outside ::/0 2001:DB8:4::2
+
+
+******************************************************arp                Set arp type (arpa, probe, snap) or timeout
+  bandwidth          Set bandwidth informational parameter
+  cdp                CDP interface subcommands
+  channel-group      Add this interface to an Etherchannel group
+  crypto             Encryption/Decryption commands
+  custom-queue-list  Assign a custom queue list to an interface
+  delay              Specify interface throughput delay
+  description        Interface specific description
+  duplex             Configure duplex operation.
+  exit               Exit from interface configuration mode
+  fair-queue         Enable Fair Queuing on an Interface
+  hold-queue         Set hold queue depth
+  ip                 Interface Internet Protocol config commands
+  ipv6               IPv6 interface subcommands
+  lldp               LLDP interface subcommands
+  mac-address        Manually set interface MAC address
+  mtu                Set the interface Maximum Transmission Unit (MTU)
+  no                 Negate a command or set its defaults
+  pppoe              pppoe interface subcommands
+  pppoe-client       pppoe client
+  priority-group     Assign a priority group to an interface
+  service-policy     Configure QoS Service Policy
+  shutdown           Shutdown the selected interface
+  speed              Configure speed operation.
+  standby            HSRP interface configuration commands
+  tx-ring-limit      Configure PA level transmit ring limit
+  zone-member        Apply zone name
+Router(config-if)# ************************************************
