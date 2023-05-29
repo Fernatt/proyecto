@@ -62,6 +62,48 @@ access-group dmz_access_in in interface dmz
 exit
 ```
 
-Estos son solo ejemplos básicos de comandos para la configuración inicial. Es posible que necesites agregar más reglas de acceso, políticas de inspección de aplicaciones y configuraciones de seguridad adicionales según tus necesidades.
+Estos son solo ejemplos básicos de comandos para la configuración inicial. Es posible que necesites 
+agregar más reglas de acceso, políticas de inspección de aplicaciones y configuraciones de seguridad adicionales según tus necesidades.
 
-Recuerda que la sintaxis exacta y los comandos pueden variar según la versión del software ASA y las características específicas de tu configuración. Siempre es recomendable consultar la documentación de Cisco y ajustar los comandos según tus requisitos y la versión del software que estés utilizando.
+Recuerda que la sintaxis exacta y los comandos pueden variar según la versión del software ASA y
+las características específicas de tu configuración. Siempre es recomendable consultar la documentación
+de Cisco y ajustar los comandos según tus requisitos y la versión del software que estés utilizando.
+
+*************************************************************SE HA UTILIZADO  FIREWALL 5506-X /*********************************************************
+ Y SE HA CONFIGURADO CADA INTERFALL
+ 
+ 
+ ***********************************************asa 5506
+interface g1/1
+ nameif inside
+ security-level 100
+ no ip address
+ ipv6 address 2001:DB8:1111:80::2/64
+!
+interface g1/2
+ nameif outside
+ security-level 0
+ ip address dhcp
+ ipv6 address 2001:DB8:4::1/64
+!
+*********podria crear una subinterfaz por cada vlan pr pder configurar las reglas oo n tal caso con
+figurar como troncal ese enlace 
+
+
+interface GigabitEthernet1/1.10
+vlan 10
+nameif vlan10
+security-level 50
+ipv6 address 2001:db8:1111:10::1/64
+
+
+
+
+******************
+como enlace tooncal
+interface GigabitEthernet0/1
+ switchport trunk native vlan 100
+ switchport mode trunk
+!
+
+
