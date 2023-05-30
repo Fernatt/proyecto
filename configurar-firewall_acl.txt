@@ -49,3 +49,81 @@ ciscoasa(config)#no ipv6 route outside ::/0 2001:DB8:4::2
   tx-ring-limit      Configure PA level transmit ring limit
   zone-member        Apply zone name
 Router(config-if)# ************************************************
+
+***************************PROBE HACERLO CON UN SWITCH DE CAPA 3 PERO E QEDADO---------------------
+VERSION 2
+CONFIGURAR SWITCH  DE CAPA 3 COMO ROUTER COMO DHCP PARA PODER ENVIAR EL TRAFICO AL FIREWALL POR ENLACE TRONCAL 
+
+*********************switch-router principal ******
+en
+confi term
+int  g1/0/2
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+
+---luego creo cada vlan y asigno ip 
+
+
+int vlan 10
+ipv6 address 2001:db8:1111:10::1/64
+
+
+----- creo el pool de direcciones dhcp-----
+ipv6 dhcp pool VLAN10
+address prefix 2001:db8:10::/64
+default-router 2001:db8:10::1///no deja
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+
+
+
+---- luego asigno a cada vlan el pull de direcciones 
+Switch(config)#in vlan 10
+Switch(config-if)#description vlan direccion
+Switch(config-if)#ipv6 nd managed-config-flag
+Switch(config-if)#ipv6 dhcp server VLAN10
+Switch(config-if)#
+
+---- habilito enrutamiento
+ ipv6 unicast-routing 
+
+ no switchport trunk native vlan 100
+no  switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ switchport mode trunk
+
+
+switchport trunk native vlan 100
+switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
