@@ -1,0 +1,83 @@
+SW 3
+vlan 10
+name direccion
+vlan 20 
+name rrhh
+vlan 30
+name contabilidad
+vlan 40
+name informatica
+vlan 50
+name disenio
+vlan 60
+name produccion
+
+crreamos los cannales port
+ grupo 1 sw izquierdo
+int range g1/0/4-5
+channel-group 1 mode passive
+
+int interface Port-channel1
+switchport mode trunk 
+switchport trunk allowed vlan 10,20,30,40,50,60
+
+
+
+ grupo 2 sw derecho 
+int range g1/0/6-7
+channel-group 2 mode desirable 
+
+interface Port-channel2
+switchport mode trunk 
+switchport trunk allowed vlan 10,20,30,40,50,60
+
+
+*********************************************************
+izquierdo 
+int range g0/1-2
+channel-group 1 mode active
+switchport mode trunk 
+switchport trunk allowed vlan 10,20,30,40,50,60
+
+
+
+
+
+
+interface Port-channel3
+ no switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ switchport mode trunk
+
+ channel-group 1 mode desirable
+
+
+
+**********************************************************
+sw derdcha
+port chanesl
+
+int range g0/1-2
+channel-group 2 mode auto
+
+
+interface Port-channel2
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ 
+
+ no switchport trunk allowed vlan 10,20,30,40,50,60
+ no switchport mode trunk
+ shutdown
+
+
+
+
+
+
+
+
+
+
+
+
