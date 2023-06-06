@@ -1,0 +1,75 @@
+Para configurar el protocolo IPsec de acceso remoto en IPv6, teniendo en cuenta la estructura de tu red LAN segmentada por 6 VLANs que se conectan por enlace troncal al router de la red LAN y teniendo una zona DMZ, los cambios que debes realizar en los comandos son los siguientes:
+
+1. Define la dirección IPv6 del pool local de direcciones para VPN:
+2. Configura la autenticación AAA (Authentication, Authorization, and Accounting):
+
+``
+Main(config)# aaa new-model
+Main(config)# aaa authentication login UserVPN local
+Main(config)# aaa authorization network GroupVPN local
+```
+
+3. Define el nombre de usuario y la contraseña para el usuario VPN:
+
+```
+Main(config)# username uservpn secret ciscovpn
+```
+
+4. Configura la política de ISAKMP (Internet Security Association and Key Management Protocol):
+
+```
+Main(config)# crypto isakmp policy 100
+Main(config-isakmp)# encryption aes 256
+Main(config-isakmp)# hash sha
+Main(config-isakmp)# authentication pre-share
+Main(config-isakmp)# group 5
+Main(config-isakmp)# lifetime 3600
+Main(config-isakmp)# exit
+```
+
+5. Configura el grupo de configuración del cliente ISAKMP:
+
+```
+Main(config)# crypto isakmp client configuration group GroupVPN
+Main(config-isakmp-group)# key ciscogroupvpn
+Main(config-isakmp-group)# pool PoolVPN
+Main(config-isakmp-group)# exit
+```
+
+6. Configura el conjunto de transformación IPsec:
+
+```
+Main(config)# crypto ipsec transform-set SetVPN esp-aes esp-sha-hmac
+```
+
+7. Configura el mapa dinámico de IPsec:
+
+```
+Main(config)# crypto dynamic-map DynamicVPN 100
+Main(config-crypto-map)# set transform-set SetVPN
+Main(config-crypto-map)# exit
+```
+
+8. Configura el mapa estático de IPsec:
+
+```
+Main(config)# crypto map StaticMap client configuration address respond
+Main(config)# crypto map StaticMap client authentication list UserVPN
+Main(config)# crypto map StaticMap isakmp authorization list GroupVPN
+Main(config)# crypto map StaticMap 20 ipsec-isakmp dynamic DynamicVPN
+Main(config)# exit
+```
+
+9. Asocia el mapa estático de IPsec a la interfaz:
+
+```
+Main(config)# interface s0/0/1
+Main(config-if)# crypto map StaticMap
+Main(config-if)# exit
+```
+
+Estos cambios adaptan la configuración del protocolo IPsec de acceso remoto para funcionar con IPv6 y consideran la segmentación de VLANs en tu red LAN. Recuerda ajustar las direcciones IPv6 y otros parámetros según tus necesidades y topología de red.
+
+
+
+***************explicacion pr comandos****
