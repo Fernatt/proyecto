@@ -1,0 +1,1738 @@
+direcciones IPV6 
+
+
+
+routers_casa
+
+-
+
+
+direcciones que me ha dado para los router de internet el chat gpt
+
+Mis disculpas por la confusión anterior. En el ejemplo proporcionado, se utilizó el prefijo
+ "2001:db8" para las direcciones IPv6, 
+que es un prefijo reservado para documentación y no debe ser utilizado en entornos de producción.
+
+Para evitar conflictos de direcciones, es importante utilizar rangos de direcciones 
+IPv6 que sean únicos y que no estén en conflicto con otros sistemas en Internet. 
+Puedes obtener un prefijo IPv6 válido de tu proveedor de servicios de Internet o utilizar un 
+prefijo de direcciones IPv6 asignado globalmente.
+
+Aquí tienes un ejemplo revisado utilizando un prefijo de direcciones IPv6 asignado globalmente:
+
+| Router   | Interfaz WAN           |
+|----------|------------------------|
+| Router 1 | 2001:0db8:1111::1/64   |
+| Router 2 | 2001:0db8:2222::1/64   |
+| Router 3 | 2001:0db8:3333::1/64   |
+| Router 4 | 2001:0db8:4444::1/64   |
+| Router 5 | 2001:0db8:5555::1/64   |
+
+Estas direcciones IPv6 son solo ejemplos y deberás ajustarlas según tu asignación de direcciones IPv6 válidas.
+
+Es importante tener en cuenta que, al implementar direcciones IPv6, 
+debes asegurarte de que no haya conflictos con otros sistemas en Internet y 
+seguir las mejores prácticas para la asignación y configuración de direcciones IPv6.
+
+
+-------------------------------------------------------------------------------------------------------
+equipo_portail_casa_VPN 
+- router_2_casa_vpn --> 2001:0db8:1111::1/64 interface gig0/0/0
+
+
+
+router_2_internet--> 2001:0db8:2222::1/64 interface gig0/0/1
+
+
+
+router_5 internet_5 --> 2001:0db8:3333::1/64 interface gig0/0/0
+router_5 internet_5 --> 2001:0db8:5555::1/64 interface gig0/0/1 
+
+
+router 6 internet_6 --> 2001:0db8:6666::1/64 interface gig0/0/0
+router 6 internet_6 --> 2001:0db8:7777::1/64 interface gig0/0/1
+
+router 10 internet_10 --> 2001:0db8:8888::1/64 interface gig0/0/0
+router 10 internet_10 --> 2001:0db8:9999::1/64 interface gig0/0/1
+
+
+router 3 internet_3 --> 2001:0db8:1001::1/64 interface gig0/0/0
+router 3 internet_3 --> 2001:0db8:1001::1/64 interface gig0/0/1
+
+router 0 internet_0 --> 2001:0db8:1110::1/64 interface gig0/0/0
+
+--------------------------------------------------------------------------------------------------
+comandos de configuracion ipv6 o los comando faciles
+
+
+router> enable --> para activar y demas la terminal 
+router#config term
+router(config) interface gig0/0/0
+router(config-if)# ipv6 add direccion ipv6/64
+router(config-if)# ipv6 enable
+router(config-if)# no shutdown 
+router(config-if)# exit
+router# write --> guardar configuracion de todo lo que hemos hecho
+
+router# show running-config
+
+
+
+coniguracion de vlan 
+
+
+------------------------------------------------------------
+configuracion de comandos
+router_2
+
+enable
+config term
+interface gig0/0/0
+ipv6 enable
+ipv6 add 2001:0db8:1111::1/64
+no shutdown
+exit
+
+interface gig 0/0/1
+ipv6 enable
+ipv6 add 2001:0db8:2222::1/64
+no shutdown
+exit
+
+
+
+
+
+
+
+--------------------------------------------------------------------
+Direccion posibles de momento pero veo algo que no esta bien asignado ispo
+
+Entendido. A continuación, te proporcionaré una tabla con las direcciones IPv6 para cada PC dentro de cada VLAN:
+
+| VLAN          | Descripción       		| Rango IPv6               | Cantidad de Equipos | Direcciones IPv6                       |
+|---------------|------------------|--------------------------|---------------------|----------------------------------------|
+| DMZ           | Zona desmilitarizada  	| 2001:db8:0:1::/64    		| Hasta 15            | 2001:db8:0:1::1 - 2001:db8:0:1::F    |
+| WIFI_EMPLEADOS | Wi-Fi para empleados 	| 2001:db8:0:2::/64    		| Hasta 15            | 2001:db8:0:2::1 - 2001:db8:0:2::F    |
+| PRODUCCIÓN    | Departamento de producción 	| 2001:db8:0:3::/64    	| Hasta 15            | 2001:db8:0:3::1 - 2001:db8:0:3::F    |
+| DISEÑO        | Departamento de diseño 	| 2001:db8:0:4::/64    	| Hasta 15            | 2001:db8:0:4::1 - 2001:db8:0:4::F    |
+| DIRECCIÓN     | Departamento de dirección 	| 2001:db8:0:5::/64    	| Hasta 15            | 2001:db8:0:5::1 - 2001:db8:0:5::F    |
+| INFORMÁTICA   | Departamento de informática 	| 2001:db8:0:6::/64    	| Hasta 15            | 2001:db8:0:6::1 - 2001:db8:0:6::F    |
+| CONTABILIDAD  | Departamento de contabilidad 	| 2001:db8:0:7::/64    	| Hasta 15            | 2001:db8:0:7::1 - 2001:db8:0:7::F    |
+| RRHH          | Departamento de recursos humanos | 2001:db8:0:8::/64  | Hasta 15            | 2001:db8:0:8::1 - 2001:db8:0:8::F    |
+| WIFI_INVITADOS | Wi-Fi para invitados | 2001:db8:0:9::/64    		| Hasta 15            | 2001:db8:0:9::1 - 2001:db8:0:9::F    |
+| SERVIDORES    | Servidores centrales | 2001:db8:0:A::/64    		| Hasta 15            | 2001:db8:0:A::1 - 2001:db8:0:A::F    |
+
+--------------------------------------------------------------------
+10 VLAN_TENEMOS EN LA EMPRESA
+
+COMPONE_VLAN 
+
+- DMZ -- vlan 70
+- WIFI_EMPLEADOS --vlan 
+- PRODUCCIÓN vlan 60
+- DISEÑO -vlan 50
+- DIRECCIÓN -vlan 10 
+- INFORMÁTICA --valn 40 
+- CONTABILIDAD --vlan 30 
+- RRHH - vlan 20
+- WIFI_INVITADOS -vlan 100
+- SERIDORES --vlan 90 
+---------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------
+configuracion eigrp para configuracion
+esto de principio
+enable 
+config term
+
+ipv6 unicast-routing
+
+interface gig0/0/0
+ipv6 addreses ipv6/64
+no shutdown
+
+
+router(config)#ipv6 enable --> esto no funciona
+router(config)#ipv6 unicast-routing
+router(config)#ipv6 router eigrp 10
+
+router(config-rtr)#eigrp router-id 1.1.1.1
+exit
+
+router(config)#interface se0/0/0 -->
+router(config-if)# ipv6 eigrp 10 
+exit
+
+ahora vamos a la interfaz dentro de la red gig0/0/0
+
+router(config)#int gig0/0
+router(config-if)#ipv6 eigrp 10
+exit
+
+vale ahora vamos a encender
+
+
+router(config)#♥ipv6 router eigrp 10
+router(config-rtr)#no shutdown
+exit
+
+como se configura el eigrp y demas 
+
+router(config)# ipv6 router eigrp 1 --> es el numero para identificar el eigrp
+router(config-rtr)#eigrp router-id 1.1.1.1 --> esta direccion debe ser unica en cada router y en las demas
+no shutdown  --> si no me equivoco para ensender el eigrp 
+
+nos vamos a la interfaz 
+interface eth0/0
+ipv6 eigrp 1 --> es decir el id del eigrp que hemos puesto antes  
+no shutdown 
+
+do show ipv6 eigrp neighbors
+--------------------------------------------------
+en el router del medio como se deberia hacer
+
+
+
+
+
+-----------------------------------------------------------
+
+
+configuracion de ospf 
+
+
+
+enable
+configure terminal
+
+interface Ethernet0/0
+ipv6 address 2001:db8:0:1::1/64
+no shutdown
+
+interface Ethernet0/1
+ipv6 address 2001:db8:0:2::1/64
+no shutdown
+
+ipv6 router ospf 1
+router-id 1.1.1.1
+exit
+
+ipv6 ospf 1 area 0
+network 2001:db8:0:1::/64 area 0
+network 2001:db8:0:2::/64 area 0
+
+
+
+---------------------------------------------------------------------------------------
+comandos de configuración de routes de red 
+
+-----------------------------------------------------------------------------------------
+configuracion del Router_VPN
+enable 
+config term
+
+ipv6 unicast-routing
+ipv6 router eigrp 1
+eigrp router-id 1.1.1.1 
+no shutdown 
+
+interface gig0/0/0
+ipv6 add 2001:DB8:2222::1/64
+ipv6 enable
+ipv6 eigrp 1
+no shutdown
+
+interface se0/1/1
+ipv6 enable
+ipv6 eigrp 1
+ipv6 add 2001:0db8:03::1/64
+no shutdown 
+do write
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------
+configuración router-2-internet
+
+enable
+config term
+ipv6 unicast-routing
+ipv6 router eigrp 1
+eigrp router-id 2.2.2.2
+no shutdown 
+
+interface se0/1/0
+ipv6 enable
+ipv6 add 2001:DB8:03::2/64
+ipv6 eigrp 1
+no shutdown 
+
+interface se0/1/1
+ipv6 enable
+ipv6 add 2001:DB8:02::1/64
+ipv6 eigrp 1
+no shutdown
+
+interface gig0/0/0
+ipv6 enable
+ipv6 add 2001:0db8:08::1/64
+ipv6 eigrp 1
+no shutdown 
+do write
+
+
+--------
+configuración router 3 internet
+
+enable
+config term
+
+ipv6 router eigrp 1
+eigrp router-id 3.3.3.3
+no shutdown 
+
+interface se0/1/1
+ipv6 enable
+ipv6 add 2001:0db8:12::2/64
+ipv6 eigrp 1
+no shutdown 
+
+interface se0/2/0
+ipv6 enable
+ipv6 add 2001:DB8:03::1/64
+ipv6 eigrp 1
+no shutdown 
+
+interface gig 0/0/0
+ipv6 enable
+ipv6 add 2001:DB8:15::1/64
+ipv6 eigrp 1
+no shutdown
+
+do write
+
+---------
+
+
+
+
+-------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------
+router-casa 5 sede 2 vpn
+
+enable 
+config term
+
+ipv6 unicast-routing
+ipv6 router eigrp 1
+eigrp router-id 5.5.5.5
+no shutdown 
+
+interface se0/1/0
+ipv6 enable
+ipv6 add 2001:0db8:12::1/64
+ipv6 eigrp 1
+no shutdown 
+do write me
+
+interface gig0/0/0
+ipv6 enable
+ipv6 add 2001:0db8:3333::1/64
+ipv6 eigrp 1
+no shutdown
+do write 
+
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+router de la r-empresa
+
+configuracion de direccion de internet 
+
+
+enable
+config term
+
+ipv6 unicast-routing
+ipv6 router eigrp 1
+eigrp router-id 2.2.2.2
+no shutdown 
+
+interface se0/1/0
+description internet
+ipv6 enable
+ipv6 add 2001:0db8:02::2/64
+ipv6 eigrp 1
+no shutdown 
+do write me
+
+
+interface gig0/0/0
+description dmz
+ipv6 enable
+ipv6 add 2001:0db8:06::1/64
+ipv6 eigrp 1
+no shutdown
+
+interface gig0/0/1
+description lan
+ipv6 enable
+ipv6 add 2001:0db8:1111::1/64
+ipv6 eigrp 1
+no shutdown
+
+interface gig0/0/1.10
+
+
+-------------------------------------------------------------------------------------------------------------
+ROUTER-SEDE2
+
+enable
+config term
+interface gig0/0/0
+ipv6 enable
+ipv6 add 2001:0db8:15::2/64
+no shutdown 
+
+interface gig0/1/0
+
+-----------------------------------------------------
+router-google
+
+
+enable 
+config term
+
+ipv6 unicast-routing
+ipv6 router eigrp 1
+eigrp router-id 3.3.3.3
+no shutdown 
+
+
+interface se0/1/0
+ipv6 enable
+ipv6 add 2001:0db8:07::2/64
+ipv6 eigrp 1
+no shutdown
+
+interface gig0/0/0
+ipv6 enable
+ipv6 eigrp 1
+ipv6 add 2001:0db8:08::1/64
+no shutdown 
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+CONFIGURACIÓN DE FIREWALL 
+
+
+interface vlan 3 --> para crear aqui nuestras vlan
+
+cuando estamos dentro nameif dmz 
+ 
+
+
+
+
+
+--------------------------------------------------------------
+enable
+config term
+ipv6 unicast-routing 
+ipv6 dhcp pool VLAN10
+address prefix  2001:0db8:1111:10::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.10
+description vlan direccion
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN10
+
+ipv6 dhcp pool VLAN20
+address prefix  2001:0db8:1111:20::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.20
+description vlan RRHH
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN20
+do write
+
+ipv6 dhcp pool VLAN30
+address prefix  2001:0db8:1111:30::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.30
+description vlan contabilidad
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN30
+do write
+
+ipv6 dhcp pool VLAN40
+address prefix  2001:0db8:1111:40::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.40
+description vlan informatica
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN40
+do write
+
+ipv6 dhcp pool VLAN50
+address prefix  2001:0db8:1111:50::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.50
+description vlan disenio
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN50
+do write
+
+ipv6 dhcp pool VLAN60
+address prefix  2001:0db8:1111:60::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.60
+description vlan produccion
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN60
+
+
+ipv6 dhcp pool VLAN110
+address prefix  2001:0db8:1111:110::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.110
+description vlan-wifi-empleados
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN110
+
+ipv6 dhcp pool VLAN120
+address prefix  2001:0db8:1111:120::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.120
+description vlan-wifi-empleados
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN120
+
+do write 
+
+
+
+
+
+
+
+---------------------------------------------------
+configuracion de router para vlan 
+
+
+
+enable
+config term
+ipv6 unicast-routing
+
+interface gig0/0/0
+ipv6 enable
+ipv6 add 2001:0db8:1111:80::2/64
+
+interface gig0/0/1
+no sh
+
+
+
+interface gig0/0/1.10
+ipv6 enable
+encapsulation dot1q 10  
+ipv6 add 2001:0db8:1111:10::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+
+interface gig0/0/1.20
+ipv6 enable
+encapsulation dot1q 20
+ipv6 add 2001:0db8:1111:20::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+interface gig0/0/1.30
+ipv6 enable
+encapsulation dot1q 30
+ipv6 add 2001:0db8:1111:30::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+interface gig0/0/1.40
+ipv6 enable
+encapsulation dot1q 40  
+ipv6 add 2001:0db8:1111:40::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+interface gig0/0/1.50
+ipv6 enable
+encapsulation dot1q 50  
+ipv6 add 2001:0db8:1111:50::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+
+interface gig0/0/1.60
+ipv6 enable
+encapsulation dot1q 60  
+ipv6 add 2001:0db8:1111:60::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+
+interface gig0/0/1.70
+ipv6 enable
+encapsulation dot1q 70  
+ipv6 add 2001:0db8:1111:70::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+interface gig0/0/1.80
+ipv6 enable
+encapsulation dot1q 80  
+ipv6 add 2001:0db8:1111:80::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+interface gig0/0/1.90
+ipv6 enable
+encapsulation dot1q 90
+ipv6 add 2001:0db8:1111:90::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+interface gig0/0/1.110
+ipv6 enable
+encapsulation dot1q 110
+ipv6 add 2001:0db8:1111:110::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+interface gig0/0/1.120
+ipv6 enable
+encapsulation dot1q 120
+ipv6 add 2001:0db8:1111:120::1/64
+ipv6 nd managed-config-flag
+ipv6 eigrp 1
+do write
+
+******************************************************
+ipv6 unicast-routing
+dhcp 
+
+ipv6 dhcp pool vlan10
+address prefix 2001:0db8:1111:10::0/64
+prefix-delegation 2001:0db8:1111:10::1/64
+dns-server 8.8.8.8
+------------------------------------------------------
+switch central 
+
+enable 
+config term
+vlan 10
+name direccion
+vlan 20
+name rrhh
+vlan 30
+name contabilidad
+vlan 40
+name informatica
+vlan 50
+name diseno
+vlan 90 
+name servidores-madrid
+vlan 100
+name troncal
+vlan 110 
+name wifi-empleados
+vlan 120
+name wifi-invitados
+
+
+interface gig 0/1
+switchport mode trunk 
+switchport trunk native vlan 100
+swicthport trunk allow vlan 90
+do write
+
+interface gig8/1
+switchport mode access
+switchport access vlan 120
+do write
+
+interface gig7/1
+switchport mode access
+switchport access vlan 110
+do write
+
+interface range fa0/1-2
+switchport mode trunk 
+switchport trunk native vlan 100
+
+do write
+
+interface gig0/1
+switchport mode trunk 
+switchport trunk native vlan 100
+do write
+
+interface gig0/2
+switchport mode trunk 
+switchport trunk native vlan 100
+do write
+
+
+
+interface range fa0/2-5
+switchport mode access
+switchport access vlan 30
+do write
+
+--------------------------------------------------------
+switch servidores 
+
+enable 
+config term 
+
+vlan 10 
+name direccion
+vlan 20
+name rrhh
+vlan 30 
+name contabilidad
+vlan 40 
+name informatica
+vlan 50
+name disenio
+vlan 60
+name produccion
+vlan 90
+name servidores-madrid
+
+vlan 100
+name troncal
+
+interface range fa0/2-3
+switchport mode access
+switchport access vlan 90
+
+interface fa0/1
+switchport mode trunk 
+switchport trunk native vlan 100
+do write
+
+
+
+
+
+
+
+---------------------------------------------------------------
+switch 2 de abajo
+
+direccion
+
+enable
+config term
+
+vlan 10 
+name direccion
+vlan 20
+name rrhh
+vlan 30 
+name contabilidad
+vlan 40 
+name informatica
+vlan 50
+name disenio
+vlan 60
+name produccion
+vlan 90
+name servidores-madrid
+do write
+
+
+vlan 10
+name direccion
+interface range fa0/11-14
+switchport mode access
+switchport access vlan 10
+do write
+
+
+
+
+vlan 20
+name rrhh
+interface range fa0/6-10
+switchport mode access
+switchport access vlan 20
+do write
+
+
+ 
+vlan 30
+name contabilidad 
+interface range fa0/2-5
+switchport mode access
+switchport access vlan 30
+do write
+
+
+
+vlan 40
+name informatica
+interface range fa0/15-19
+switchport mode access 
+switchport access vlan 40
+do write
+
+
+
+troncal 
+vlan 100
+name troncal
+
+interface gig0/1
+switchport mode trunk 
+switchport trunk native vlan 100
+do write
+
+
+interface gig0/2
+switchport mode trunk 
+switchport trunk native vlan 100
+do write
+
+
+
+vlan 110
+name wifi-empleados
+interface fa0/23
+switchport mode access
+switchport access vlan 110
+do write
+-------------------------------------------------------------------------------------
+
+switch de produccion y diseño
+
+
+enable
+config term
+
+vlan 50 
+name diseño
+vlan 60
+name produccion
+vlan 90
+name servidores-madrid
+vlan 100
+name troncal
+
+interface range fa0/17-22
+switchport mode access
+switchport access vlan 50
+do write
+
+interface range fa0/1-16
+switchport mode access
+switchport access vlan 60
+do write
+
+interface gig0/1
+switchport mode trunk
+switchport trunk native vlan 100
+do write
+
+interface gig0/2
+switchport mode trunk
+switchport trunk native vlan 100
+do write
+
+
+
+-------------------------------------------------------------------------
+comando para ver las cosas que 
+tenemos configuradadas
+
+
+do show vlan brief
+do show interface trunk
+do show ip interface brief
+
+
+
+
+
+
+
+
+
+-----------------------------------------------
+para ver si tenemos para que nos salga esto y se enriute por dhcp 
+
+
+ipv6 nd managed-config-flag
+
+
+
+despues miramos lo que tenemos 
+Router(config-subif)#do show ipv6 interface gig0/0/1.40
+con esto miramos lo que tenemos 
+
+nos deberia salir esto si lo queremos 
+para el dhcp 
+
+Hosts use DHCP to obtain routable addresses.
+
+
+
+
+
+
+#no ipv6 nd other-config-flag
+
+
+do show ipv6 interface gig0/0/1
+----------------------------------------------------------------------------------
+configuracion de firewall y router y demas ipv6 direcciones ip
+aqui tenemos que poner las direccion ip
+
+vale esto lo tenemos pero al parecer no funciona asi si no que tenemos que hacer 
+vlan para cada interfaz y con eso listo ya que si nos vamos a la configuracion que tenemos
+pues solo nos deja vlan es decir que solo con vlan seria lo que tenemos que hacer
+firewall 
+
+
+enable
+config term
+
+interface eth0/0
+ipv6 enable
+ipv6 add 2001:0db8:05:2::0/64
+no shutdown 
+do write
+
+
+interface eth0/1 
+ipv6 enable
+ipv6 add 2001:0db8:1111:06::1/64
+no shutdown 
+do write
+
+
+interface gig0/2
+ipv6 enable
+ipv6 add 2001:0db8:1111:80::1/64
+no shutdown 
+do wirte
+-----------------------------------------------------------------------------------------
+
+configuracion de FIREWALL SEDE 1
+
+
+
+esto ya es cuando tenemos que hacer una configuracion es decir
+en cada interfaz que tenemos asignarle cada vlan correspondiente a cada
+interfaz
+
+
+enable
+config term
+
+
+interface eth0/0
+switchpor access vlan 2 
+
+interface eth0/1
+switchport access vlan 3
+
+interface eth0/2
+switchport acces vlan 1
+
+--------------------------------------------------------
+ahora vamos con la configuracion de cada vlan para la dmz y demas
+
+este sera para nuestra red que debe tener 100 de seguridad LAN
+-----------------------------------------------------------
+aqui ya estamos configurando cada vlan con su correspondiente ip y demas
+y seguridad y nombre
+
+
+
+interface vlan1
+nameif inside
+security-level 100
+ipv6 address 2001:0DB8:1111:80::1/64
+
+
+interface vlan2
+nameif outside 
+security-level 0
+ipv6 address 2001:0DB8:1111:05::1/64
+
+
+interface vlan3
+no forward interface vlan 1 
+nameif dmz
+security-level 50
+ipv6 address 2001:0db8:1111:06::1/64
+
+write me
+
+
+
+
+
+aqui lo que estamos haciendo es tener la configuracion de la seguridad 
+y demas para ver que pasa con esto, todavia falta y demas
+
+
+
+class-map inspeccion --definimos la clase que mapeara la politica
+match any
+
+
+policy-map POLITICA
+class INSPECCION
+inspect icmp
+
+service-ploity POLITICA global
+
+
+
+
+
+-----------------------------------------------------------------------------
+
+no dhcpd auto_config outside
+dhcpd address 192.168.1.5-192.168.1.36 inside
+dhcpd enable inside
+
+-----------------------------------------------------------------------------
+configuracion de firewall de reglas de seguridad
+
+
+
+
+al parecer cuando tenemos nuestras vlanes creadas y queremos hacer ping
+y demas de un pc por ejemplo de la dmz o server quiere ir a internet de afuera 
+no puede porque el firewall predeterminadamente esta cerrado los puertos y demas
+y por eso no permite que fluya el trafico
+
+
+enable
+config term
+
+
+interface eth0/0
+switchport access vlan 2 
+
+interface eth0/1
+switchport access vlan 3
+
+interface eth0/2
+switchport acces vlan 1
+
+
+
+
+interface vlan1
+nameif inside
+security-level 100
+ipv6 address 2001:0DB8:1111:80::1/64
+
+
+interface vlan2
+nameif outside 
+security-level 0
+ipv6 address 2001:0DB8:04::1/64
+
+
+interface vlan3
+no forward interface vlan 1 
+nameif dmz
+security-level 50
+ipv6 address 2001:0db8:06::1/64
+write me
+
+
+
+
+
+-----------------------------------------------------------------
+configuracion de asa politicas FIREWALL SEDE1 
+
+primero son las politicas de trafico de paquetes 
+
+enlace de video donde te explica solo como funciona el inicio y demas y la configuracion de clases y pliticas --> https://www.youtube.com/watch?v=nuzTbu13AtM 
+
+
+comandos
+--------------
+
+
+esto es crear una clase de trafico
+firewall(config)# class-map clase1 --> nombre de la clase que es clase1
+
+despues nos pondra match clasificacion de criterios que tiene las politicas que vamos a poenr
+
+si ponemos match ?
+nos saldra toda la configuracion 
+
+comando 
+------------
+
+
+ciscoasa(config-cmap)# match default-inspection-traffic --> aqui le decimos en la clase1 que es lo que vamos a coger el criterio que vamos a elegir 
+exit
+
+ciscoasa(config)#policy-map global_policy 
+ciscoasa(config-pmap)# class clase1 
+ciscoasa(config-pmap-c)#inspect icmp 
+exit
+ciscoasa(config)#service-policy global_policy global 
+exit
+exit
+show running-config
+ 
+
+
+ipv6 access-list DMZ-ACL
+permit tcp 
+
+
+
+
+
+
+
+
+
+
+
+
+
+vale de un video de momento
+
+comando 
+
+
+crear access-list de momento de como se crean 
+
+
+
+access-list acl1 extended permit /deny icmp any any
+
+primero es crear el access-list 
+el nombre de como se llama --> acl1 
+lo siguiente no sabria decirte --> extended 
+vale lo siguiente es de permitir o denegar --> permit/deny
+que protocolo y demas se puede ver creo que mas ? --> icmp,tcp, udp 
+el primer any es de donde --> any 
+el segundo any es para donde --> any
+
+
+
+vale en este comando lo esta haciendo en el asa y es
+diferente en el router asi que tendremos que ver la diferencia y 
+demas de como se deberia hacerlo 
+
+
+comando asa
+
+
+acces-group acl1 out interface dmz 
+----------------------------------------------
+
+
+lo primero es el acces-group el nombre del comando --> access-group
+el nombre de acls --> acl1
+donde queremos la entrada out o in --> out
+de donde sera en la dmz --> DMZ
+
+y con esto ya tendrimas lo que queremos
+
+
+
+ipv6 acces-list DMZ-A-LAN deny icmp any any 
+
+-----------------------------------------------------------------------------------------
+
+entonces vamos a probar como seria los comandos que dice el chatgpt
+
+ipv6 access-list DMZ-A-LAN
+permit tcp any any eq 443
+permit tcp any any eq 80
+deny icmp any any 
+
+ipv6 access-list 
+
+ipv6 access-list INTERNET-A-LAN
+deny icmp any any 
+permit tcp any any eq 80
+permit tcp any any eq 443
+
+
+interface gig0/0/0 
+ipv6 traffic-filter DMZ-A-LAN in 
+
+
+interface se0/1/0
+ipv6 traffic-filter INTERNET-A-LAN in 
+
+
+ipv6 access-list icmp 
+deny icmp any any 
+
+interface se0/1/0
+ipv6 traffic-filter icmp in 
+
+
+
+ipv6 access-list LAN-TO-INTERNET
+permit icmp any any established
+permit tcp any any established 
+interface gig0/0/1 
+ipv6 traffic-filter LAN-TO-INTERNET in 
+do write
+
+
+
+
+access-list 1 
+permit any any 
+access-list 1 deny any any 
+
+interface se0/1/0
+ip access-group 1 out
+
+
+-------------------------------------------------------------------------------------------
+
+ipv6 access-list DMZ-TO-INTERNET
+permit tcp any any eq 80
+exit
+
+ipv6 access-list DMZ-TO-LAN
+deny ipv6 any any
+exit
+
+interface gig0/0/0 (DMZ interface)
+ipv6 traffic-filter DMZ-TO-INTERNET out
+ipv6 traffic-filter DMZ-TO-LAN in
+exit
+
+
+
+no ipv6 access-list DMZ-TO-LAN
+
+interface gig0/0/0
+no ipv6 traffic-filter DMZ-TO-LAN in
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------
+lo que tengo hecho o ha salido
+
+
+ipv6 access-list lan-a-internet
+permit ipv6 any any
+deny ipv6 any any
+
+
+ipv6 access-list DMZ-TO-INTERNET
+permit tcp any any eq www
+
+
+ipv6 access-list PRUEBA
+permit tcp any any eq www
+permit icmp any any 
+
+interface Serial0/1/0
+ipv6 traffic-filter lan-a-internet out
+
+
+interface GigabitEthernet0/0/0
+ipv6 traffic-filter DMZ-TO-INTERNET out
+
+
+interface gig0/0/1
+ipv6 traffic-filter PRUEBA out
+
+
+
+
+
+access-list 101 permit tcp any any established
+
+interface gig0/0/1
+ipv6 traffic-filter 101 out
+
+ipv6 access-list dmz-a-lan
+deny icmp any any echo-request
+permit ipv6 any any
+
+interface gig0/0/0
+ipv6 traffic-filter dmz-a-lan in
+-------------------------------------------------------------
+ipv6 access-list icmp-tcp-a-lan
+permit tcp any 2001:0db8:06::/64 eq 80
+permit icmp any 2001:0db8:06::/64 
+deny icmp any 2001:0db8:1111::/64 echo-request
+deny tcp any 2001:0db8:1111:90::/64 eq 80
+permit ipv6 any any
+
+
+interface se0/1/0
+ipv6 traffic-filter icmp-tcp-a-lan in
+
+----------------------------------------------------------------------------
+
+ipv6 access-list dmz
+deny icmp 2001:0db8:06::/64 any echo-request 
+permit ipv6 any any
+
+interface gig0/0/0
+ipv6 traffic-filter dmz in
+
+
+ipv6 access-list dmz-out
+deny tcp 2001:0db8:1111:90::/64 2002:0db8:06::/64 eq 80
+deny tcp 2001:0db8:1111:90::/64 2002:0db8:06::/64 eq 443
+permit ipv6 any any 
+
+interface gig0/0/0
+ipv6 traffic-filteer dmz-out out
+------------------------------------------------------------------------
+
+ipv6 access-list tcp-dmz
+permit tcp any any eq 80 established
+
+
+ipv6 access-list dmz
+deny icmp any any echo-request
+permit ipv6 any any
+
+interface gig0/0/1
+ipv6 traffic-filter tcp-internet in
+
+
+
+
+ipv6 access-list INTERNET-TO-DMZ
+permit tcp any any eq 80
+permit tcp any any eq 443
+permit ipv6 any any
+
+interface gig0/0/0
+ipv6 traffic-filter  INTERNET-TO-DMZ out
+
+
+
+-----------------------------------------------------
+
+
+ipv6 access-list INTERNET-TO-LAN
+ deny icmp any any
+ permit tcp any any eq 80
+ permit tcp any any eq 443
+ permit ipv6 any any
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------
+VPN
+
+
+1.primero para saber es que si no tenemos un pool dhcp no podemos 
+
+
+
+2. Configuracion la autentificacion aaaa (Authenticacion,Authorization, 
+and Accounting)
+
+aaa new-model
+aaa authentication login UserVPN local
+aaa authorization network Direccion VLAN10
+
+3.Definimos el nombre del usuario y la contraseña para el usuario
+VPN de nuestro jefe de la VLAN10
+
+username jefe secret boss-.
+
+
+4.la creacion de la politica ISAKMP (Internet Security Association and Key 
+Management Protocol)
+
+crypto isakmp policy 100
+encryption aes 256
+hash sha
+authentication pre-share 
+group 1
+lifetime 3600
+exit
+
+
+5. configuracion del cliente
+
+crypto isakmp client configuration group Direccion
+key ciscodireccion
+pool VLAN10 
+exit
+
+
+crypto ipsec transform-set setVPN esp-aes esp-sha-hmac
+crypto dynamic-map DynmicVPN 100 
+
+set transform-set setVPN 
+reverse-route
+exit
+
+crypto map StaticMap client configuration address respond
+crypto map StaticMap client authentication list UserVPN
+crypto map StaticMap isakmp authorization list Direccion
+crypto map StaticMap 20 ipsec-isakmp dynamic  DynmicVPN
+
+interface s0/1/0 
+crypto map StaticMap
+deberia aparecer on 
+
+
+
+
+configuracion de cliente 
+
+
+
+network --> Direccion 
+
+
+group key: ciscodireccion
+direccion: 2001:0db8:02::1/64 
+username: jefe
+password: boss-.
+
+
+
+ver la configuracion y demas para ver el estado
+
+ipconfig /all 
+
+
+
+
+-----------------------------------------------------------------
+Main(config)# aaa new-model
+Main(config)# aaa authentication login UserVPN local
+Main(config)# aaa authorization network GroupVPN local
+```
+
+3. Define el nombre de usuario y la contraseña para el usuario VPN:
+
+```
+Main(config)# username uservpn secret ciscovpn
+```
+
+4. Configura la política de ISAKMP (Internet Security Association and Key Management Protocol):
+
+```
+Main(config)# crypto isakmp policy 100
+Main(config-isakmp)# encryption aes 256
+Main(config-isakmp)# hash sha
+Main(config-isakmp)# authentication pre-share
+Main(config-isakmp)# group 5
+Main(config-isakmp)# lifetime 3600
+Main(config-isakmp)# exit
+```
+
+5. Configura el grupo de configuración del cliente ISAKMP:
+
+```
+Main(config)# crypto isakmp client configuration group GroupVPN
+Main(config-isakmp-group)# key ciscogroupvpn
+Main(config-isakmp-group)# pool PoolVPN
+Main(config-isakmp-group)# exit
+```
+
+6. Configura el conjunto de transformación IPsec:
+
+```
+Main(config)# crypto ipsec transform-set SetVPN esp-aes esp-sha-hmac
+```
+
+7. Configura el mapa dinámico de IPsec:
+
+```
+Main(config)# crypto dynamic-map DynamicVPN 100
+Main(config-crypto-map)# set transform-set SetVPN
+Main(config-crypto-map)# exit
+```
+
+8. Configura el mapa estático de IPsec:
+
+```
+Main(config)# crypto map StaticMap client configuration address respond
+Main(config)# crypto map StaticMap client authentication list UserVPN
+Main(config)# crypto map StaticMap isakmp authorization list GroupVPN
+Main(config)# crypto map StaticMap 20 ipsec-isakmp dynamic DynamicVPN
+Main(config)# exit
+```
+
+9. Asocia el mapa estático de IPsec a la interfaz:
+
+```
+Main(config)# interface s0/0/1
+Main(config-if)# crypto map StaticMap
+Main(config-if)# exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
