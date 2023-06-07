@@ -1,0 +1,120 @@
+Para configurar el protocolo IPsec de acceso remoto en IPv6, teniendo en cuenta la estructura de tu red LAN segmentada por 6 VLANs que se conectan por enlace troncal al router de la red LAN y teniendo una zona DMZ, los cambios que debes realizar en los comandos son los siguientes:
+
+1. Define la dirección IPv6 del pool local de direcciones para VPN:
+
+```
+Main(config)# ipv6 local pool PoolVPN 2001:DB8:2:100::/64 2001:DB8:2:115::/64
+```
+
+2. Configura la autenticación AAA (Authentication, Authorization, and Accounting):
+
+```
+Main(config)# aaa new-model
+Main(config)# aaa authentication login UserVPN local
+Main(config)# aaa authorization network GroupVPN local
+```
+
+3. Define el nombre de usuario y la contraseña para el usuario VPN:
+
+```
+Main(config)# username uservpn secret ciscovpn
+```
+
+4. Configura la política de ISAKMP (Internet Security Association and Key Management Protocol):
+
+```
+Main(config)# crypto isakmp policy 100
+Main(config-isakmp)# encryption aes 256
+Main(config-isakmp)# hash sha
+Main(config-isakmp)# authentication pre-share
+Main(config-isakmp)# group 5
+Main(config-isakmp)# lifetime 3600
+Main(config-isakmp)# exit
+```
+
+5. Configura el grupo de configuración del cliente ISAKMP:
+
+```
+Main(config)# crypto isakmp client configuration group GroupVPN
+Main(config-isakmp-group)# key ciscogroupvpn
+Main(config-isakmp-group)# pool PoolVPN
+Main(config-isakmp-group)# exit
+```
+
+6. Configura el conjunto de transformación IPsec:
+
+```
+Main(config)# crypto ipsec transform-set SetVPN esp-aes esp-sha-hmac
+```
+
+7. Configura el mapa dinámico de IPsec:
+
+```
+Main(config)# crypto dynamic-map DynamicVPN 100
+Main(config-crypto-map)# set transform-set SetVPN
+Main(config-crypto-map)# exit
+```
+
+8. Configura el mapa estático de IPsec:
+
+```
+Main(config)# crypto map StaticMap client configuration address respond
+Main(config)# crypto map StaticMap client authentication list UserVPN
+Main(config)# crypto map StaticMap isakmp authorization list GroupVPN
+Main(config)# crypto map StaticMap 20 ipsec-isakmp dynamic DynamicVPN
+Main(config)# exit
+```
+
+9. Asocia el mapa estático de IPsec a la interfaz:
+
+```
+Main(config)# interface s0/0/1
+Main(config-if)# crypto map StaticMap
+Main(config-if)# exit
+```
+
+Estos cambios adaptan la configuración del protocolo IPsec de acceso remoto para funcionar con IPv6 y consideran la segmentación de VLANs en tu red LAN. Recuerda ajustar las direcciones IPv6 y otros parámetros según tus necesidades y topología de red.
+
+
+
+***************explicacion pr comandos****
+¡Por supuesto! A continuación, te explicaré paso a paso cada una de las configuraciones realizadas:
+
+1. **ipv6 local pool PoolVPN 2001:DB8:2:100::/64 2001:DB8:2:115::/64**: Esta configuración define un rango de direcciones IPv6 para asignar a los clientes VPN que se conecten. En este caso, se utiliza el prefijo "2001:DB8:2" seguido de un rango del 100 al 115.
+
+2. **aaa new-model**: Esta configuración habilita el modelo AAA (Authentication, Authorization, and Accounting) en el router. El modelo AAA proporciona una forma centralizada de autenticar, autorizar y contabilizar el acceso a los recursos de red.
+
+3. **aaa authentication login UserVPN local**: Este comando configura la autenticación para los usuarios de VPN. Los usuarios serán autenticados localmente en el router utilizando las credenciales configuradas.
+
+4. **aaa authorization network GroupVPN local**: Esta configuración define la autorización de red para el grupo VPN. Aquí se especifica que la autorización se realizará localmente en el router.
+
+5. **username uservpn secret ciscovpn**: Este comando configura un nombre de usuario y una contraseña para el usuario VPN. En este caso, el nombre de usuario es "uservpn" y la contraseña es "ciscovpn".
+
+6. **crypto isakmp policy 100**: Esta configuración define una política ISAKMP con el número de secuencia 100.
+
+7. **encryption aes 256**: Se especifica el algoritmo de cifrado AES con una longitud de clave de 256 bits.
+
+8. **hash sha**: Se utiliza el algoritmo de hash SHA (Secure Hash Algorithm) para la integridad de los datos.
+
+9. **authentication pre-share**: Se establece la autenticación precompartida (pre-shared key) para la autenticación entre pares.
+
+10. **group 5**: Se configura el grupo de difusión de claves Diffie-Hellman (DH) para el intercambio de claves.
+
+11. **lifetime 3600**: Se establece el tiempo de vida (lifetime) de las asociaciones de seguridad ISAKMP en segundos.
+
+12. **crypto isakmp client configuration group GroupVPN**: Esta configuración define un grupo de configuración para los clientes VPN.
+
+13. **key ciscogroupvpn**: Se establece una clave precompartida para el grupo VPN.
+
+14. **pool PoolVPN**: Se especifica el pool de direcciones IPv6 que se utilizará para asignar a los clientes VPN.
+
+15. **crypto ipsec transform-set SetVPN esp-aes esp-sha-hmac**: Aquí se define un conjunto de transformación IPsec que utiliza el algoritmo de cifrado AES y el algoritmo de integridad SHA para las transformaciones de seguridad.
+
+16. **crypto dynamic-map DynamicVPN 100**: Se configura un mapa dinámico de IPsec con el número de secuencia 100.
+
+17. **set transform-set SetVPN**: Se especifica el conjunto de transformación IPsec que se utilizará en el mapa dinámico.
+
+18. **reverse-route**: Esta configuración permite que el tráfico de los clientes VPN se enrute de regreso a través del túnel IPsec.
+
+19. **crypto map StaticMap client configuration address respond**: Aquí se define el mapa estático de IPsec y se indica que el router responderá a las solicitudes de los clientes VPN.
+
