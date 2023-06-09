@@ -1,0 +1,572 @@
+
+****************************************************************
+CONFIGURACION DE SWITCHS PROTEGER LAS INTERFACES**
+****************************************************************
+configuracion de vlanes por swhitchs y levantamiento de interfaces
+
+
+
+CENTRAL
+// Se crean todas las vlanes //
+esto para entraar en el dispositivo
+
+enable
+configure terminal
+hostname SW-CENTRAL-BAR
+banner motd "SOLO PERSONAL AUTORIZADO "
+enable secret barcelona
+
+******para configurar modo privilegiado****
+line console 0
+password barcelona
+login
+exec-timeout 20
+logging synchronous
+exit
+service password-encryption
+  
+
+
+vlan 10
+name direccion
+int vlan 10
+exit 
+
+vlan 20 
+name rrhh
+int vlan 20
+exit 
+
+vlan 30
+name contabilidad
+int vlan 30
+exit 
+
+vlan 40
+name informatica
+int vlan 40
+exit 
+
+vlan 50
+name disenio
+int vlan 50
+exit 
+
+vlan 60
+name produccion
+int vlan 60
+exit 
+
+vlan 90
+name servidores
+int vlan 90
+exit 
+
+vlan 100
+name troncal
+int vlan 100
+exit
+
+exit
+write
+
+**************************************
+IZQ
+
+esto para entraar en el dispositivo
+
+enable
+configure terminal
+hostname SW-IZQ
+banner motd "SOLO PERSONAL AUTORIZADO "
+enable secret barcelona
+
+******para configurar modo privilegiado****
+line console 0
+password barcelona
+login
+exec-timeout 20
+logging synchronous
+exit
+
+service password-encryption
+  
+
+
+enable
+configure terminal
+hostname SW-IZQ
+banner motd "SOLO PERSONAL AUTORIZADO "
+
+vlan 10
+name direccion
+int vlan 10
+exit
+
+vlan 20 
+name rrhh
+int vlan 20
+exit
+
+vlan 30
+name contabilidad
+int vlan 30
+exit
+
+vlan 40
+name informatica
+int vlan 40
+exit
+
+vlan 50
+name disenio
+int vlan 50
+exit 
+
+vlan 60
+name produccion
+int vlan 60
+exit 
+
+vlan 90
+name servidores
+int vlan 90
+exit
+
+vlan 100
+name troncal
+int vlan 100
+exit
+
+
+
+int range fa0/18-21
+switchport mode access
+switchport access vlan 10
+no sh
+exit
+
+int range  fa0/12-14, fa0/16-17
+switchport mode access
+switchport access vlan 20
+no sh
+exit
+
+int  range fa0/1-3
+switchport mode access
+switchport access vlan 30
+no sh
+exit
+
+int range fa0/8-10, fa0/4-5
+switchport mode access
+switchport access vlan 40
+no sh
+exit
+
+exit
+wr
+
+
+
+*****************************************
+DERECH
+esto para entraar en el dispositivo
+
+enable
+configure terminal
+hostname SW-DER
+banner motd "SOLO PERSONAL AUTORIZADO "
+enable secret barcelona
+
+******para configurar modo privilegiado****
+line console 0
+password barcelona
+login
+exec-timeout 20
+logging synchronous
+exit
+//para encriptar la contrasaeña
+service password-encryption
+  
+
+
+
+
+
+
+
+
+
+
+
+ vlan 10
+name direccion
+int vlan 10
+exit
+
+vlan 20 
+name rrhh
+int vlan 20
+exit
+
+no vlan 30
+name contabilidad
+int vlan 30
+exit
+
+no vlan 40
+name informatica
+int vlan 40
+exit
+
+
+
+
+int range fa0/16-21
+switchport mode access
+switchport access vlan 50
+no sh
+exit
+
+int range fa0/1-15, fa0/22
+switchport mode access
+switchport access vlan 60
+no sh
+exit
+
+
+*****************************************
+
+CONFIGURACION ETHERNET-CHANNEL
+
+*****************************************
+
+USO PROTOCOLO PAGP CON LACP
+
+//configuraciones de enlaces troncales
+y creacion del canal 
+------------------
+sw-servidores
+
+interface Port-channel4
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ switchport mode trunk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------
+SW-CENTRAL-
+
+barcelona
+Enable
+barcelona
+
+configure terminal
+
+
+interface Port-channel1
+ switchport mode trunk
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ 
+exit
+
+interface Port-channel2
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ switchport mode trunk
+exit
+
+interface Port-channel4
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ switchport mode trunk
+exit
+
+
+
+
+
+
+
+int range g3/1, g4/1
+ channel-group 1 mode active
+
+
+int range g5/1,g6/1
+channel-group 2 mode active
+no sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------
+DERECH
+
+interface Port-channel2
+ switchport mode trunk
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ 
+exit
+
+interface Port-channel3
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ switchport mode trunk
+exit
+
+interface range FastEthernet0/23-24
+ switchport mode trunk
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ channel-group 3 mode active
+ no sh
+
+exit
+do write 
+
+ 
+
+interface range GigabitEthernet0/1-2
+ switchport mode trunk
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,100
+ channel-group 2 mode active
+exit
+do write 
+
+ 
+
+
+ ***
+---------------------------------------------
+
+IZQ
+
+
+interface Port-channel1
+ switchport mode trunk
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ 
+exit
+
+interface Port-channel3
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ switchport mode trunk
+exit
+
+
+
+
+
+
+
+interface range FastEthernet0/23-24
+ switchport mode trunk
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ channel-group 3 mode active
+ no sh
+
+exit
+
+ 
+!
+
+interface range  GigabitEthernet0/1-2
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,60,90,100
+ switchport mode trunk
+ channel-group 1 mode active
+ no sh
+exit
+
+ 
+!
+------------------------------------------------------
+
+
+****************************************************************************
+ROUTER
+enable
+configure terminal
+hostname R-BARCA
+banner motd "SOLO PERSONAL AUTORIZADO "
+enable secret barcelona
+
+******para configurar modo privilegiado****
+line console 0
+	password barcelona
+	login
+	exec-timeout 20
+	logging synchronous
+exit
+
+service password-encryption
+----------------------------------
+barcelona
+enable
+barcelona
+configure terminal
+
+
+interface GigabitEthernet0/0/0
+ ipv6 traffic-filter dmz in
+ ipv6 traffic-filter dmz-out out
+ ipv6 address 2001:DB8:1111:2::1/64
+ ipv6 eigrp 1
+
+interface GigabitEthernet0/0/0.10
+ description vlan direccion
+ encapsulation dot1Q 10
+ ipv6 address 2001:DB8:1111:11::1/64
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 1
+ ipv6 enable
+ ipv6 dhcp server VLAN10
+!
+interface GigabitEthernet0/0/1.20
+ description vlan RRHH
+ encapsulation dot1Q 20
+ no ip address
+ ipv6 address 2001:DB8:1111:21::1/64
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 1
+ ipv6 enable
+ ipv6 dhcp server VLAN20
+!
+interface GigabitEthernet0/0/1.30
+ description vlan contabilidad
+ encapsulation dot1Q 30
+ no ip address
+ ipv6 address 2001:DB8:1111:31::1/64
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 1
+ ipv6 enable
+ ipv6 dhcp server VLAN30
+!
+interface GigabitEthernet0/0/1.40
+ description vlan informatica
+ encapsulation dot1Q 40
+ no ip address
+ ipv6 address 2001:DB8:1111:41::1/64
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 1
+ ipv6 enable
+ ipv6 dhcp server VLAN40
+!
+interface GigabitEthernet0/0/1.50
+ description vlan disenio
+ encapsulation dot1Q 50
+ no ip address
+ ipv6 address 2001:DB8:1111:51::1/64
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 1
+ ipv6 enable
+ ipv6 dhcp server VLAN50
+!
+interface GigabitEthernet0/0/1.60
+ description vlan produccion
+ encapsulation dot1Q 60
+ no ip address
+ ipv6 address 2001:DB8:1111:61::1/64
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 1
+ ipv6 enable
+ ipv6 dhcp server VLAN60
+!
+interface GigabitEthernet0/0/1.70
+ no ip address
+!
+interface GigabitEthernet0/0/1.90
+ encapsulation dot1Q 90
+ no ip address
+ ipv6 address 2001:DB8:1111:90::1/64
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 1
+ ipv6 enable
+!
+interface GigabitEthernet0/0/1.110
+ description vlan-wifi-empleados
+ encapsulation dot1Q 110
+ no ip address
+ ipv6 address 2001:DB8:1111:110::1/64
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 1
+ ipv6 enable
+ ipv6 dhcp server VLAN110
+!
+interface GigabitEthernet0/0/1.120
+ description vlan-wifi-empleados
+ encapsulation dot1Q 120
+ no ip address
+ ipv6 address 2001:DB8:1111:120::1/64
+ ipv6 nd managed-config-flag
+ ipv6 eigrp 1
+ ipv6 enable
+ ipv6 dhcp server VLAN120
+!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
