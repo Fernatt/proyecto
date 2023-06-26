@@ -1,0 +1,354 @@
+CONFIGURACIÓN EtherChannel: LACP
+Sw-A(config)
+
+
+enable
+configure terminal
+interface range gig0/1-2
+shutdown
+channel-group 1 mode active  --> lacp 
+no shutdown
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40
+----------------------------------------------------------------
+show etherchannel summary
+
+
+
+channel-group 1 mode ? 
+aqui tenemos todas
+
+----------------------------------------
+SWITCH CENTRAL MADRID       LACP &  PAGP
+
+enable
+configure terminal
+interface range gig2/1, gig3/1
+shutdown
+channel-group 1 mode active
+no shutdown
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40
+
+
+
+interface range gig4/1, gig5/1
+shutdown
+channel-group 2 mode desirable
+no shutdown
+interface port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan 50,60
+
+
+------------------------------------------------------------------------
+SW-INF-DERECHO
+
+PAGP
+
+enable
+configure terminal
+interface range gig0/1-2
+shutdown
+channel-group 2 mode auto
+no shutdown
+interface port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan 50,60
+
+
+
+PARA GUARGAR CONFIGURACION 
+copy running-config startup-config
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------
+configuracion de switch central
+
+enable 
+config term
+vlan 10
+name direccion
+vlan 20
+name rrhh
+vlan 30
+name contabilidad
+vlan 40
+name informatica
+vlan 50
+name diseno
+vlan 60 
+name produccion
+vlan 90 
+name servidores-madrid
+vlan 100
+name troncal
+
+interface gig 0/1
+switchport mode trunk 
+switchport trunk native vlan 100
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write 
+
+
+interface range gig 1/1,gig2/1
+switchport mode trunk 
+switchport trunk native vlan 100
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+interface range gig 1/1,gig 2/1
+channel-group 4 mode active
+int port-channel4
+switchport mode trunk 
+switchport trunk native vlan 100 
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+interface range gig4/1, gig3/1
+switchport mode trunk 
+switchport trunk native vlan 100
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+interface range gig4/1,gig3/1
+channel-group 1 mode active
+int port-channel1
+switchport mode trunk 
+switchport trunk native vlan 100 
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+
+
+interface range gig6/1, gig5/1
+switchport mode trunk
+switchport trunk native vlan 100
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+interface range gig6/1, gig5/1
+channel-group 2 mode active
+int port-channel2
+switchport mode trunk
+switchport trunk native vlan 100
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+
+-----------------------------------------------
+
+
+
+
+LACP--> DE AQUI ABAJO CONFIGURACION SWITCH CENTRAL
+
+interface range gig2/1, gig3/1
+channel-group 1 mode active
+
+creating a pòrt-channel interface port-channel 1 --> significa que ya se ha creado el 
+el channel group 1
+
+
+entramos en el channel 
+
+int port-channel1
+switchport mode trunk 
+switchport trunk native vlan 100 
+switchport trunk allow vlan 10,20,30,40,100
+
+-----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------
+para saber que tenemos bien hecho las troncales 
+
+------Port consistency restored ------
+
+
+----------------------------------------------------------------------------------
+switch servidores SWITCH SERVIDORES
+
+
+enable 
+config term
+
+interface range gig 0/1-2
+switchport mode trunk 
+switchport trunk native vlan 100
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+interface range gig 0/1-2
+channel-group 4 mode active
+int port-channel4
+switchport mode trunk 
+switchport trunk native vlan 100 
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+
+
+--------------------------------------------------------------------------------
+swich abajo IZQUIERDA
+
+
+
+enable
+config term
+vlan 10
+name direccion
+vlan 20
+name rrhh
+vlan 30
+name contabilidad
+vlan 40
+name informatica
+vlan 50
+name diseno
+vlan 60 
+name produccion
+vlan 90 
+name servidores-madrid
+vlan 100
+name troncal
+
+interface range gig0/1-2
+switchport mode trunk
+switchport trunk native vlan 100
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+interface range gig0/1-2
+channel-group 1 mode active
+int port-channel1
+switchport mode trunk 
+switchport trunk native vlan 100 
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+interface range fa0/23-24
+switchport mode trunk
+switchport trunk native vlan 100
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+no shutdown
+do write
+
+
+interface range fa0/23-24
+channel-group 3 mode active
+int port-channel3
+switchport mode trunk 
+switchport trunk native vlan 100 
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+-----------------------------------------------------------------------------------------------
+
+SWITCH ABAJO DERECHA
+
+enable 
+config term
+vlan 10
+name direccion
+vlan 20
+name rrhh
+vlan 30
+name contabilidad
+vlan 40
+name informatica
+vlan 50
+name diseno
+vlan 60 
+name produccion
+vlan 90 
+name servidores-madrid
+vlan 100
+name troncal
+
+interface range gig0/1-2
+switchport mode trunk
+switchport trunk native vlan 100
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+interface range gig0/1-2
+channel-group 2 mode active
+int port-channel2
+switchport mode trunk 
+switchport trunk native vlan 100 
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+
+
+interface range fa0/23-24
+switchport mode trunk
+switchport trunk native vlan 100
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+interface range fa0/23-24
+channel-group 3 mode active
+int port-channel3
+switchport mode trunk 
+switchport trunk native vlan 100 
+switchport trunk allow vlan 10,20,30,40,50,60,90,100
+do write
+
+
+-------------------------------------------------
+show vlan brief 
+
+
+show interface port-channel 1 
+do show etherchannel summary
+
+
+
+
+
+
+
+
+
+
+
+
+
+

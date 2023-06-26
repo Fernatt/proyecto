@@ -1,0 +1,73 @@
+configuracion del Router_VPN
+
+
+enable 
+config term
+
+ipv6 unicast-routing
+ipv6 router rip 9 
+
+
+interface gig0/0/0
+ipv6 add 2001:DB8:2222::1/64
+ipv6 rip 9 enable
+no shutdown 
+do write
+
+interface se0/1/1
+ipv6 enable
+ipv6 rip 9 enable
+ipv6 add 2001:0db8:03::1/64
+no shutdown 
+do write
+
+
+------------------------------------------------------
+router 1
+
+
+enable
+config term
+
+ipv6 unicast-routing
+ipv6 router rip 9
+
+interface se0/1/0
+ipv6 enable
+ipv6 add 2001:DB8:03::2/64
+ipv6 rip 9 enable
+no shutdown 
+do write
+
+interface se0/1/1
+ipv6 enable
+ipv6 add 2001:DB8:02::1/64
+ipv6 rip 9 enable
+no shutdown 
+do write
+
+
+
+interface gig0/0/0
+ipv6 enable
+ipv6 add 2001:0db8:08::1/64
+ipv6 rip 9 enable
+no shutdown 
+do write
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

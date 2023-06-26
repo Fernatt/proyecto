@@ -1,0 +1,112 @@
+SITE-TO-SITE
+
+eigrp 1
+
+
+enable 
+config term
+
+
+interface gig0/0/2
+
+ip address 72.44.20.14 255.255.255.240
+no shutdown 
+
+
+router ospf 1
+router-id 1.1.1.1
+log-adjacency-changes 
+network 72.44.20.0 0.0.0.15 area 0
+exit
+
+interface tunnel 0
+ipv6 address 3000::1/112
+ipv6 eigrp 1
+tunnel source g0/0/2
+tunnel destination 72.44.20.21
+tunnel mode ipv6ip 
+
+
+----------------------------------------------------------------------------------
+Router7 
+
+enable
+config term
+
+
+interface gig0/0/0
+ip address 72.44.20.11 255.255.255.240
+no shutdown 
+
+
+interface gig0/0/1
+ip address 72.44.21.1 255.255.255.240
+no shutdown 
+
+router ospf 1
+router-id 2.2.2.2
+log-adjacency-changes 
+network 72.44.20.0 0.0.0.15 area 0
+network 72.44.21.0 0.0.0.15 area 0
+exit
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------
+router-sede2
+
+enable
+config term
+
+interface gig0/0/1
+ip address 72.44.21.2 255.255.255.240
+no shutdown 
+
+
+
+router ospf 1
+router-id 3.3.3.3
+log-adjacency-changes 
+network 72.44.21.0 0.0.0.15 area 0
+exit
+
+
+interface tunnel 0
+ipv6 address 3000::2/112
+ipv6 eigrp 1
+tunnel source g0/0/1
+tunnel destination 72.44.20.14
+tunnel mode ipv6ip 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

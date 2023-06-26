@@ -1,0 +1,207 @@
+
+enable
+config term
+ipv6 unicast-routing 
+
+ipv6 router rip 9 
+exit
+do write
+
+interface se0/1/0
+description internet
+ipv6 enable
+ipv6 add 2001:0db8:02::2/64
+ipv6 rip 9 enable
+no shutdown 
+do write me
+
+
+
+interface gig0/0/0
+ipv6 enable
+ipv6 add 2001:0db8:06::1/64
+ipv6 rip 9 enable
+no shutdown 
+
+interface gig0/0/1
+ipv6 enable
+ipv6 add 2001:0db8:1111:1::1/64
+ipv6 rip 9 enable
+no shutdown 
+do write
+
+interface gig0/0/1.10
+ipv6 enable
+encapsulation dot1q 10  
+ipv6 add 2001:0db8:1111:10::1/64
+ipv6 nd managed-config-flag
+ipv6 rip 9 enable
+no shutdown 
+do write
+
+
+ipv6 dhcp pool VLAN10
+address prefix  2001:0db8:1111:10::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.10
+description vlan direccion
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN10
+do write
+
+
+interface gig0/0/1.20
+ipv6 enable
+encapsulation dot1q 20
+ipv6 add 2001:0db8:1111:20::1/64
+ipv6 nd managed-config-flag
+ipv6 rip 9 enable
+no shutdown 
+do write
+
+
+
+ipv6 dhcp pool VLAN20
+address prefix  2001:0db8:1111:20::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.20
+description vlan RRHH
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN20
+do write
+
+
+
+interface gig0/0/1.30
+ipv6 enable
+encapsulation dot1q 30
+ipv6 add 2001:0db8:1111:30::1/64
+ipv6 nd managed-config-flag
+ipv6 rip 9 enable
+no shutdown
+do write
+
+ipv6 dhcp pool VLAN30
+address prefix  2001:0db8:1111:30::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.30
+description vlan contabilidad
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN30
+do write
+
+
+interface gig0/0/1.40
+ipv6 enable
+encapsulation dot1q 40  
+ipv6 add 2001:0db8:1111:40::1/64
+ipv6 nd managed-config-flag
+ipv6 rip 9 enable
+no shutdown 
+do write
+
+ipv6 dhcp pool VLAN40
+address prefix  2001:0db8:1111:40::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.40
+description vlan informatica
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN40
+do write
+
+interface gig0/0/1.50
+ipv6 enable
+encapsulation dot1q 50  
+ipv6 add 2001:0db8:1111:50::1/64
+ipv6 nd managed-config-flag
+ipv6 rip 9 enable
+no shutdown
+do write
+
+ipv6 dhcp pool VLAN50
+address prefix  2001:0db8:1111:50::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.50
+description vlan disenio
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN50
+do write
+
+interface gig0/0/1.60
+ipv6 enable
+encapsulation dot1q 60  
+ipv6 add 2001:0db8:1111:60::1/64
+ipv6 nd managed-config-flag
+ipv6 rip 9 enable
+no shutdown
+do write
+
+ipv6 dhcp pool VLAN60
+address prefix  2001:0db8:1111:60::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.60
+description vlan produccion
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN60
+
+
+interface gig0/0/1.90
+ipv6 enable
+encapsulation dot1q 90
+ipv6 add 2001:0db8:1111:90::1/64
+ipv6 nd managed-config-flag
+ipv6 rip 9 enable
+no shutdown 
+do write
+
+
+interface gig0/0/1.110
+ipv6 enable
+encapsulation dot1q 110
+ipv6 add 2001:0db8:1111:110::1/64
+ipv6 nd managed-config-flag
+ipv6 rip 9 enable
+no shutdown
+do write
+
+ipv6 dhcp pool VLAN110
+address prefix  2001:0db8:1111:110::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.110
+description vlan-wifi-empleados
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN110
+do write
+
+
+interface gig0/0/1.120
+ipv6 enable
+encapsulation dot1q 120
+ipv6 add 2001:0db8:1111:120::1/64
+ipv6 nd managed-config-flag
+ipv6 rip 9 enable
+no shutdown 
+do write
+
+ipv6 dhcp pool VLAN120
+address prefix  2001:0db8:1111:120::/64
+dns-server 2001:0db8:1111:90::10
+domain-name monedamundial.com
+interface gig0/0/1.120
+description vlan-wifi-empleados
+ipv6 nd managed-config-flag
+ipv6 dhcp server VLAN120
+
+
+
+
+
+
+

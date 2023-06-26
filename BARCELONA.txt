@@ -1,0 +1,86 @@
+configuracion de vlanes por swhitchs
+*******
+CONFIGURACION DE SWITCHS PROTEGER LAS INTERFACES**
+
+
+
+
+*******
+
+CENTRAL
+// Se crean todas las vlanes //
+
+vlan 10
+name direccion
+vlan 20 
+name rrhh
+vlan 30
+name contabilidad
+vlan 40
+name informatica
+vlan 50
+name disenio
+vlan 60
+name produccion
+
+**************************************
+IZQ
+
+vlan 10
+name direccion
+vlan 20 
+name rrhh
+vlan 30
+name contabilidad
+vlan 40
+name informatica
+
+int range fa0/18-21
+switchport mode access
+switchport access vlan 10
+
+
+int range  fa0/12-14, fa0/16-17
+switchport mode access
+switchport access vlan 20
+
+
+int  range fa0/1-3
+switchport mode access
+switchport access vlan 30
+
+
+int fa0/8-10, fa0/4-5
+switchport mode access
+switchport access vlan 40
+
+
+*****************************************
+
+DERECHA
+
+vlan 50
+name direccion
+vlan 60 
+name produccion
+
+int fa0/16-21
+switchport mode access
+switchport access vlan 40
+
+
+int fa0/1-15, fa0/22
+switchport mode access
+switchport access vlan 40
+
+
+
+
+****************************************
+
+
+
+
+
+
+

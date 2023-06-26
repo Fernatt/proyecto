@@ -1,0 +1,202 @@
+sirve para bloquear solo de internet par dentro 
+y al reves funciona
+
+
+ipv6 access-list icmp-tcp-a-lan
+deny icmp any any echo-request
+permit ipv6 any any
+
+interface se0/1/0
+ipv6 traffic-filter icmp-tcp-a-lan in
+
+
+
+
+------------------------------------------------------
+este es el bueno y demas
+
+ipv6 access-list icmp-tcp-a-lan
+permit icmp any 2001:DB8:6::/64 
+deny icmp any any echo-request
+permit ipv6 any any
+
+interface se0/1/0
+ipv6 traffic-filter icmp-tcp-a-lan in
+
+
+
+ipv6 access-list lan 
+deny icmp 2001:0db8:06::/64 
+
+
+----------------------------------------------
+
+
+ipv6 access-list icmp-tcp-a-lan
+deny icmp any 2001:0db8:1111:90::/64 echo-request
+permit ipv6 any any
+
+interface se0/1/0
+ipv6 traffic-filter icmp-tcp-a-lan in
+
+
+
+ipv6 access-list icmp-tcp-a-lan
+permit tcp any 2001:DB8:6::/64 eq 80
+deny icmp any any echo-request
+deny tcp any 2001:DB8:1111:90::/64 eq www
+permit ipv6 any any
+
+
+interface se0/1/0
+ipv6 traffic-filter icmp-tcp-a-lan in
+
+
+
+------------------------------------------------------------------------------
+ipv6 access-list dmz
+deny icmp any any echo-request 
+deny tcp any any eq 80
+permit ipv6 any any
+
+interface gig0/0/0
+ipv6 traffic-filter dmz in
+
+
+ipv6 access-list lan-in
+permi
+permit 
+
+interface gig0/0/1
+ipv6 traffic-filter dmz-out out
+-------------------------------------------------------------------------------------
+ipv6 access-list icmp-tcp-a-lan
+permit tcp any 2001:DB8:6::/64 eq 80
+deny icmp any any echo-request
+deny tcp any 2001:DB8:1111:90::/64 eq www
+permit ipv6 any any
+
+
+interface se0/1/0
+ipv6 traffic-filter icmp-tcp-a-lan in
+
+
+
+------------------------------------------------------------------------------
+ipv6 access-list dmz
+deny icmp any any echo-request 
+permit ipv6 any any
+
+interface gig0/0/0
+ipv6 traffic-filter dmz in
+
+
+ipv6 access-list dmz-out
+permit ipv6 any any 
+
+interface gig0/0/0
+ipv6 traffic-filter dmz-out out
+
+
+
+
+
+
+
+
+
+
+
+ipv6 access-list dmz
+ deny icmp 2001:DB8:6::/64 any echo-request
+deny tcp  any 2001:0db8:1111:90::/64 eq 80
+ permit ipv6 any any
+
+
+
+
+
+-------------------------------------------------------
+
+CREO QUE DEFINITIVO
+
+
+ipv6 access-list icmp-tcp-a-lan
+permit tcp any 2001:DB8:6::/64 eq 80 
+permit icmp any 2001:DB8:6::/64
+permit ipv6 2001:0db8:1111:100::/64 2001:0db8:1111:10::/64
+deny icmp any any echo-request 
+deny tcp any 2001:DB8:1111:90::/64 eq 80
+permit ipv6 any any 
+
+interface se0/1/0
+ipv6 traffic-filter icmp-tcp-a-lan in
+
+
+
+ipv6 access-list dmz-out
+ permit ipv6 any any
+interface GigabitEthernet0/0/0
+ipv6 traffic-filter dmz-out out
+
+
+
+ipv6 access-list dmz
+deny icmp 2001:DB8:6::/64 any echo-request
+deny tcp any 2001:DB8:1111:90::/64 eq 80
+permit ipv6 any any
+
+interface GigabitEthernet0/0/0
+ipv6 traffic-filter dmz in
+ 
+
+
+ipv6 access-list lan
+permit icmp 2001:0db8:1111:2::/64 any 
+deny ipv6 any any 
+
+interface gig0/0/1
+ipv6 traffic-filter dmz in
+
+
+show access-list
+
+
+
+
+
+-------------------------------------------------------------------------------
+Final 
+
+
+ipv6 access-list icmp-tcp-a-lan
+permit tcp any 2001:DB8:6::/64 eq 80 
+permit icmp any 2001:DB8:6::/64
+permit ipv6 host 2001:0db8:1111:100::10 host 2001:0db8:1111:10::10
+deny icmp any any echo-request 
+deny tcp any 2001:DB8:1111:90::/64 eq 80
+permit ipv6 any any 
+
+interface se0/1/0
+ipv6 traffic-filter icmp-tcp-a-lan in
+
+ipv6 access-list dmz-out
+ permit ipv6 any any
+
+interface GigabitEthernet0/0/0
+ipv6 traffic-filter dmz-out out
+
+ipv6 access-list dmz
+deny icmp 2001:DB8:6::/64 any echo-request
+deny tcp any 2001:DB8:1111:90::/64 eq 80
+permit ipv6 any any
+
+interface GigabitEthernet0/0/0
+ipv6 traffic-filter dmz in
+
+
+
+
+
+
+
